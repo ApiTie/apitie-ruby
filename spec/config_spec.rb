@@ -1,5 +1,3 @@
-require "spec_helper"
-
 module ApiTie
   RSpec.describe Config do
     describe "validate!" do
