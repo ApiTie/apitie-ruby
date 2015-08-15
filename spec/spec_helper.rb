@@ -1,6 +1,13 @@
+require "webmock/rspec"
+
 require "apitie"
+WebMock.disable_net_connect!
+
+require_relative "helpers"
 
 RSpec.configure do |config|
+  config.include Helpers
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
@@ -19,7 +26,7 @@ RSpec.configure do |config|
   config.warnings = true
 
   if config.files_to_run.one?
-    config.default_formatter = 'doc'
+    config.default_formatter = "doc"
   end
 
   config.profile_examples = 10
