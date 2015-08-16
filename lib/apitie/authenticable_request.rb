@@ -30,7 +30,7 @@ module ApiTie
 
     def calculate_hmac(verb, params, timestamp)
       digest = OpenSSL::Digest.new("sha1")
-      data = "#{verb}#{timestamp}#{params.to_query}"
+      data = "#{verb.upcase}#{timestamp}#{params.to_query}"
       OpenSSL::HMAC.hexdigest(digest, @config.private_key, data)
     end
   end
