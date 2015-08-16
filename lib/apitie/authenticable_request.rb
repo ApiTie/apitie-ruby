@@ -24,14 +24,14 @@ module ApiTie
       {
         'X-Access-Token' => @config.public_key,
         'X-Request-Timestamp' => timestamp.to_s,
-        'X-Request-Hash' => calculate_hmac(verb, @config.private_key, {}, timestamp)
+        'X-Request-Hash' => calculate_hmac(verb, {}, timestamp)
       }
     end
 
-    def calculate_hmac(verb, private_key, params, timestamp)
+    def calculate_hmac(verb, params, timestamp)
       digest = OpenSSL::Digest.new("sha1")
       data = "#{verb}#{timestamp}#{params.to_query}"
-      OpenSSL::HMAC.hexdigest(digest, private_key, data)
+      OpenSSL::HMAC.hexdigest(digest, @config.private_key, data)
     end
   end
 end
