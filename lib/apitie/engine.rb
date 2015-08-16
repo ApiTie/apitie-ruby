@@ -1,6 +1,7 @@
 require "apitie/record"
 require "apitie/body"
 require "apitie/authenticable_request"
+require "apitie/api_error"
 
 module ApiTie
   class Engine
@@ -9,7 +10,12 @@ module ApiTie
     end
 
     def get_list(path)
-      parse_list @request.get(path)
+      response = @request.get(path)
+      if response.success?
+        parse_list @request.get(path)
+      else
+        fail ApiError.new(response)
+      end
     end
 
     private
