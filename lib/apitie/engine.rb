@@ -12,7 +12,7 @@ module ApiTie
     def get_list(path)
       response = @request.get(path)
       if response.success?
-        parse_list @request.get(path)
+        parse_list response
       else
         fail ApiError.new(response)
       end

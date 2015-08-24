@@ -9,13 +9,12 @@ RSpec.describe ApiTie do
     describe "for an existing collection" do
       context "containing records" do
         before do
-          stub_api_with body: {
+          stub_api("/users").body \
             users: [
               { id: 1, name: "Jon Snow", age: 24 },
               { id: 4, name: "Eddard Stark", age: 50 },
               { id: 8, name: "Arya Stark", age: 12 }
             ]
-          }
         end
 
         it "should parse them appropriately" do
@@ -33,7 +32,7 @@ RSpec.describe ApiTie do
 
       context "containing records and associations" do
         before do
-          stub_api_with body: {
+          stub_api("/characters").body \
             characters: [
               { id: 2, name: "Jon Snow", weapons: [7] },
               { id: 3, name: "Arya Stark", weapons: [1] }
@@ -42,7 +41,6 @@ RSpec.describe ApiTie do
               { id: 7, name: "Longclaw" },
               { id: 1, name: "Needle" }
             ]
-          }
         end
 
         it "should parse them appropriately" do
