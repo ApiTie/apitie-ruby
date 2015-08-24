@@ -6,15 +6,17 @@ RSpec.describe ApiTie do
         c.private_key = "dontcareeither"
       end
     end
+
     describe "for an existing collection" do
       context "containing records" do
         before do
           stub_api("/users").body \
-            users: [
-              { id: 1, name: "Jon Snow", age: 24 },
-              { id: 4, name: "Eddard Stark", age: 50 },
-              { id: 8, name: "Arya Stark", age: 12 }
-            ]
+            data: [
+              { type: "users", id: 1, name: "Jon Snow", age: 24 },
+              { type: "users", id: 4, name: "Eddard Stark", age: 50 },
+              { type: "users", id: 8, name: "Arya Stark", age: 12 }
+            ],
+            included: []
         end
 
         it "should parse them appropriately" do
