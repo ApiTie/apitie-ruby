@@ -29,32 +29,6 @@ RSpec.describe ApiTie do
           end
         end
       end
-
-      context "containing records and associations" do
-        before do
-          stub_api("/characters").body \
-            characters: [
-              { id: 2, name: "Jon Snow", weapons: [7] },
-              { id: 3, name: "Arya Stark", weapons: [1] }
-            ],
-            weapons: [
-              { id: 7, name: "Longclaw" },
-              { id: 1, name: "Needle" }
-            ]
-        end
-
-        it "should parse them appropriately" do
-          ApiTie.fetch_all("characters").tap do |records|
-            expect_to_hit_api_with(get: "/characters")
-
-            expect(records.characters.size).to eql 2
-            expect(records.weapons.size).to eql 2
-
-            expect(records.characters.first).to be_a(ApiTie::Record)
-            expect(records.weapons.first).to be_a(ApiTie::Record)
-          end
-        end
-      end
     end
   end
 end
